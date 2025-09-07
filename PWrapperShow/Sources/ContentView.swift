@@ -12,36 +12,40 @@ public struct ContentView: View {
     }
 
     public var body: some View {
-        Group {
-            switch selectedTab {
-            case .home:
-                HomeView()
-            case .stateObject:
-                StateObjectMainView()
-            case .observedObject:
-                ObservedMainView()
-            case .binding:
-                HomeView()
-            case .onboarding:
-                HomeView()
+        ZStack {
+            Group {
+                switch selectedTab {
+                case .home:
+                    HomeView()
+                case .stateObject:
+                    StateObjectMainView()
+                case .observedObject:
+                    ObservedMainView()
+                case .binding:
+                    HomeView()
+                case .onboarding:
+                    HomeView()
+                }
             }
-        }
-        VStack {
-            Spacer()
-            HStack(spacing: 0) { // change the Icon to the designed one
-                NavigationButton(icon: "house.fill", selectedTab: .home, currentTab: $selectedTab)
-                NavigationButton(icon: "1.circle.fill", selectedTab: .stateObject, currentTab: $selectedTab)
-                NavigationButton(icon: "2.circle.fill", selectedTab: .observedObject, currentTab: $selectedTab)
-                NavigationButton(icon: "3.circle.fill", selectedTab: .binding, currentTab: $selectedTab)
-                NavigationButton(icon: "4.circle.fill", selectedTab: .onboarding, currentTab: $selectedTab)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            
+            VStack {
+                Spacer()
+                HStack(spacing: 0) { // change the Icon to the designed one
+                    NavigationButton(icon: "house.fill", selectedTab: .home, currentTab: $selectedTab)
+                    NavigationButton(icon: "1.circle.fill", selectedTab: .stateObject, currentTab: $selectedTab)
+                    NavigationButton(icon: "2.circle.fill", selectedTab: .observedObject, currentTab: $selectedTab)
+                    NavigationButton(icon: "3.circle.fill", selectedTab: .binding, currentTab: $selectedTab)
+                    NavigationButton(icon: "4.circle.fill", selectedTab: .onboarding, currentTab: $selectedTab)
+                }
+                .background(
+                    RoundedRectangle(cornerRadius: 25)
+                        .fill(.ultraThinMaterial)
+                        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
+                )
+                .padding(.horizontal, 50)
+                .padding(.bottom, 34)
             }
-            .background(
-                RoundedRectangle(cornerRadius: 25)
-                    .fill(.ultraThinMaterial)
-                    .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 5)
-            )
-            .padding(.horizontal, 50)
-            .padding(.bottom, 34)
         }
     }
 
