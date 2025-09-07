@@ -35,7 +35,6 @@ public struct ContentView: View {
                 NavigationButton(icon: "3.circle.fill", selectedTab: .binding, currentTab: $selectedTab)
                 NavigationButton(icon: "4.circle.fill", selectedTab: .onboarding, currentTab: $selectedTab)
             }
-            .foregroundColor(selectedTab == .stateObject? .blue : .gray) // repair this so that the tab bar selected color transition fits the design
             .background(
                 RoundedRectangle(cornerRadius: 25)
                     .fill(.ultraThinMaterial)
