@@ -17,9 +17,9 @@ public struct ContentView: View {
             case .home:
                 HomeView()
             case .stateObject:
-                StateObjectView()
+                StateObjectMainView()
             case .observedObject:
-                ObservedObjectView()
+                ObservedMainView()
             case .binding:
                 HomeView()
             case .onboarding:
