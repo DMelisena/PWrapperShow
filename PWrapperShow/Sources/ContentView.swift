@@ -6,10 +6,11 @@ public struct ContentView: View {
     
     enum Tab: CaseIterable {
         case home
-        case stateObject
-        case observedObject
+//        case stateObject
+//        case observedObject
         case environmentObject
         case binding
+        case propertyWrappers
         case onboarding
     }
     
@@ -19,14 +20,16 @@ public struct ContentView: View {
                 switch selectedTab {
                 case .home:
                     HomeView()
-                case .stateObject:
-                    StateObjectMainView()
-                case .observedObject:
-                    ObservedMainView()
+//                case .stateObject:
+//                    StateObjectMainView()
+//                case .observedObject:
+//                    ObservedMainView()
                 case .environmentObject:
                     EnvironmentObjectMainView()
                 case .binding:
-                    HomeView()
+                    StateAndBindingExample()
+                case .propertyWrappers:
+                    PropertyWrapperShowcase()
                 case .onboarding:
                     HomeView()
                 }
@@ -38,10 +41,11 @@ public struct ContentView: View {
                 Spacer()
                 HStack(spacing: 0) { // change the Icon to the designed one
                     NavigationButton(icon: "house.fill", selectedTab: .home, currentTab: $selectedTab)
-                    NavigationButton(icon: "1.circle.fill", selectedTab: .stateObject, currentTab: $selectedTab)
-                    NavigationButton(icon: "2.circle.fill", selectedTab: .observedObject, currentTab: $selectedTab)
+//                    NavigationButton(icon: "1.circle.fill", selectedTab: .stateObject, currentTab: $selectedTab)
+//                    NavigationButton(icon: "2.circle.fill", selectedTab: .observedObject, currentTab: $selectedTab)
                     NavigationButton(icon: "3.circle.fill", selectedTab: .environmentObject, currentTab: $selectedTab)
                     NavigationButton(icon: "4.circle.fill", selectedTab: .binding, currentTab: $selectedTab)
+                    NavigationButton(icon: "p.circle.fill", selectedTab: .propertyWrappers, currentTab: $selectedTab)
                     NavigationButton(icon: "5.circle.fill", selectedTab: .onboarding, currentTab: $selectedTab)
                 }
                 .background(
