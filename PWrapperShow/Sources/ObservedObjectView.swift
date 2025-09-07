@@ -5,23 +5,31 @@ struct ObservedObjectView: View {
     @ObserveInjection var forceRedraw
 
     var body: some View {
-        VStack(spacing: 20) {
+        VStack(spacing: 24) {
             Text("Observed Object")
                 .font(.title2)
-                .fontWeight(.medium)
+                .fontWeight(.semibold)
+                .foregroundColor(.primary)
 
             Text("count = \(viewModel.count)")
-                .font(.title)
+                .font(.largeTitle)
                 .fontWeight(.bold)
+                .foregroundColor(.primary)
+                .padding(.vertical, 8)
 
             Button("+") {
                 viewModel.addCountValue()
             }
-            .font(.largeTitle)
-            .frame(width: 60, height: 60)
-            .background(Color.white.opacity(0.3))
+            .font(.title)
+            .fontWeight(.bold)
+            .frame(width: 70, height: 70)
+            .background(Color.white.opacity(0.4))
             .clipShape(Circle())
+            .shadow(color: .black.opacity(0.1), radius: 4, x: 0, y: 2)
         }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal, 40)
+        .padding(.vertical, 30)
     }
 }
 
@@ -46,6 +54,9 @@ struct ObservedMainView: View {
             .clipShape(Capsule())
 
             ObservedObjectView()
+                .clipShape(RoundedRectangle(cornerRadius: 20))
+                .background(Color.white.opacity(0.4))
+                .padding(.horizontal,50)
         }
         .padding(30)
         .background(currentColor)
