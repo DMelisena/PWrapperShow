@@ -69,3 +69,18 @@ struct EnvironmentObjectMainView: View {
 #Preview {
     EnvironmentObjectMainView()
 }
+// You're absolutely right! Visually, there would be no difference between the StateObject and EnvironmentObject examples as I've implemented them.
+//
+//   Both create their own CounterViewModel instance in the main view:
+//   - StateObjectView: Uses @StateObject var viewModel = CounterViewModel() directly
+//   - EnvironmentObjectMainView: Uses @StateObject private var viewModel = CounterViewModel() then passes it via .environmentObject(viewModel)
+//
+//   The key difference is architectural, not visual:
+//   - @StateObject: Direct ownership and access
+//   - @EnvironmentObject: Dependency injection through the environment
+//
+//   To demonstrate the real benefit of @EnvironmentObject, the example should show:
+//   1. A shared view model created at a higher level (like in the App or ContentView)
+//   2. Multiple child views accessing the same instance through the environment
+//   3. Changes in one view reflecting in others
+//
