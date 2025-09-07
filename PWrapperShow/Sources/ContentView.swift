@@ -2,7 +2,8 @@ import SwiftUI
 
 public struct ContentView: View {
     @State private var selectedTab: Tab = .home
-
+    @StateObject private var sharedViewModel = CounterViewModel()
+    
     enum Tab: CaseIterable {
         case home
         case stateObject
@@ -11,7 +12,7 @@ public struct ContentView: View {
         case binding
         case onboarding
     }
-
+    
     public var body: some View {
         ZStack {
             Group {
@@ -33,6 +34,7 @@ public struct ContentView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             VStack {
+                Text("Environment Count = \(sharedViewModel.count)")
                 Spacer()
                 HStack(spacing: 0) { // change the Icon to the designed one
                     NavigationButton(icon: "house.fill", selectedTab: .home, currentTab: $selectedTab)
@@ -51,13 +53,14 @@ public struct ContentView: View {
                 .padding(.bottom, 34)
             }
         }
+        .environmentObject(sharedViewModel)
     }
-
+    
     struct NavigationButton: View {
         let icon: String
         let selectedTab: ContentView.Tab
         @Binding var currentTab: ContentView.Tab
-
+        
         var body: some View {
             Button(action: {
                 withAnimation(.easeInOut(duration: 0.3)) {
@@ -79,9 +82,10 @@ public struct ContentView: View {
         }
     }
 }
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+    
+    struct ContentView_Previews: PreviewProvider {
+        static var previews: some View {
+            ContentView()
+        }
     }
-}
+    

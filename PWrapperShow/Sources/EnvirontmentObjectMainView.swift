@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct EnvironmentObjectView: View {
-    @EnvironmentObject var viewModel: CounterViewModel
+     @EnvironmentObject var viewModel: CounterViewModel
     @ObserveInjection var forceRedraw
 
     var body: some View {
@@ -33,13 +33,79 @@ struct EnvironmentObjectView: View {
     }
 }
 
+struct EnvironmentObjectCounterViewA: View {
+     @ObservedObject var viewModel: CounterViewModel
+    let title: String
+    let color: Color
+    @ObserveInjection var forceRedraw
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Text(title)
+                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundColor(.primary)
+
+            Text("count = \(viewModel.count)")
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(.primary)
+
+            Button("+1") {
+                viewModel.addCountValue()
+            }
+            .font(.body)
+            .fontWeight(.semibold)
+            .frame(width: 60, height: 40)
+            .background(color.opacity(0.6))
+            .foregroundColor(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+        }
+        .padding(20)
+        .background(Color.white.opacity(0.3))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+}
+struct EnvironmentObjectCounterViewB: View {
+     @StateObject var viewModel: CounterViewModel
+    let title: String
+    let color: Color
+    @ObserveInjection var forceRedraw
+
+    var body: some View {
+        VStack(spacing: 16) {
+            Text(title)
+                .font(.headline)
+                .fontWeight(.semibold)
+                .foregroundColor(.primary)
+
+            Text("count = \(viewModel.count)")
+                .font(.title2)
+                .fontWeight(.bold)
+                .foregroundColor(.primary)
+
+            Button("+1") {
+                viewModel.addCountValue()
+            }
+            .font(.body)
+            .fontWeight(.semibold)
+            .frame(width: 60, height: 40)
+            .background(color.opacity(0.6))
+            .foregroundColor(.white)
+            .clipShape(RoundedRectangle(cornerRadius: 8))
+        }
+        .padding(20)
+        .background(Color.white.opacity(0.3))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+}
+
 struct EnvironmentObjectMainView: View {
     @State var currentColor: Color = .red
-    @StateObject private var viewModel = CounterViewModel()
     @ObserveInjection var forceRedraw
-    
+
     var body: some View {
-        VStack(spacing: 40) {
+        VStack(spacing: 30) {
             Button("Alternate Main View") {
                 if currentColor == .red {
                     currentColor = .blue
@@ -47,28 +113,43 @@ struct EnvironmentObjectMainView: View {
                     currentColor = .red
                 }
             }
-            .font(.title)
+            .font(.title2)
             .fontWeight(.semibold)
-            .frame(minWidth: 220, minHeight: 70)
-            .padding(.horizontal, 30)
-            .padding(.vertical, 18)
+            .frame(minWidth: 200, minHeight: 60)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 12)
             .background(Color.white.opacity(0.2))
             .clipShape(Capsule())
+
+            Text("Environment Object Demo")
+                .font(.title)
+                .fontWeight(.bold)
+                .foregroundColor(.primary)
+
+            Text("Multiple views sharing the same counter state")
+                .font(.caption)
+                .foregroundColor(.secondary)
+                .multilineTextAlignment(.center)
+
+            HStack(spacing: 20) {
+                EnvironmentObjectCounterViewA(viewModel: CounterViewModel(), title: "ObservedObject", color: .green)
+                EnvironmentObjectCounterViewB(viewModel: CounterViewModel(), title: "StateObject", color: .orange)
+            }
 
             EnvironmentObjectView()
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 .background(Color.white.opacity(0.4))
-                .padding(.horizontal, 50)
         }
         .padding(30)
         .background(currentColor)
         .foregroundColor(.black)
-        .environmentObject(viewModel) }
+    }
 }
 
 #Preview {
     EnvironmentObjectMainView()
 }
+
 // You're absolutely right! Visually, there would be no difference between the StateObject and EnvironmentObject examples as I've implemented them.
 //
 //   Both create their own CounterViewModel instance in the main view:
@@ -84,3 +165,4 @@ struct EnvironmentObjectMainView: View {
 //   2. Multiple child views accessing the same instance through the environment
 //   3. Changes in one view reflecting in others
 //
+//   Would you like me to modify it to show a more realistic EnvironmentObject scenario where the shared state is visible across multiple views?
